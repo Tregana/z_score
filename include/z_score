@@ -1,0 +1,26 @@
+/* vim: set filetype=cpp: */
+#ifndef TREGANA_Z_SCORE
+#define TREGANA_Z_SCORE
+#include <vector>
+#include <list>
+#include <memory>
+#include <unordered_set>
+#include <cmath>
+namespace tregana {
+template<typename F, typename std::enable_if_t<std::is_floating_point_v<F>> * = nullptr>
+struct z_score
+{
+  z_score(F mean, F stdev) noexcept
+  : mean(mean)
+  , stdev(stdev)
+  {}
+  F operator()(F value) const noexcept
+  {
+    return (value - mean) / stdev;
+  }
+  private:
+    F mean;
+    F stdev;
+};
+}//namespace tregana
+#endif//TREGANA_Z_SCORE
